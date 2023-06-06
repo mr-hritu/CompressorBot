@@ -6,4 +6,4 @@ RUN apt -qq update && apt -qq install -y git wget pv jq wget python3-dev ffmpeg 
 COPY . .
 RUN pip3 install -r requirements.txt
 CMD ["bash","run.sh"]
-EXPOSE 8080/tcp
+EXPOSE 8080:80/tcp
