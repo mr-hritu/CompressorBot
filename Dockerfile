@@ -4,6 +4,6 @@ WORKDIR /bot
 RUN apt -qq update && apt -qq install -y git wget pv jq wget python3-dev ffmpeg mediainfo
 RUN python -m pip install --upgrade pip
 COPY . .
-RUN pip3 install -r requirements.txt
 EXPOSE 80
+RUN pip3 install -r requirements.txt
 CMD ["bash","run.sh"]
