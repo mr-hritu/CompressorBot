@@ -6,4 +6,4 @@ RUN apt -qq update && apt -qq install -y git wget pv jq wget python3-dev ffmpeg 
 COPY . .
 RUN pip3 install -r requirements.txt
 CMD ["bash","run.sh"]
-docker run --publish 8080:8080 docker-gs-ping
+RUN docker run --publish 8080:8080 docker-gs-ping
