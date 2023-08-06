@@ -15,9 +15,9 @@
 from . import *
 
 try:
-    APP_ID = config("APP_ID", default=29616312 , cast=int)
-    API_HASH = config("API_HASH" , default="dd1a05ab4c47a5a037cc067cf4bded27")
-    BOT_TOKEN = config("BOT_TOKEN" , default="6026867531:AAGjjBA9bTO_6lhWgxUW8IwrSp6wNAUNHYY")
+    APP_ID = config("APP_ID", default=28888037 , cast=int)
+    API_HASH = config("API_HASH" , default="9fbe164b5591df05fbd8577e3b1d6d21")
+    BOT_TOKEN = config("BOT_TOKEN" , default="6026867531:AAHDOzar2A9kVZSnPRNYrhkxofQZFAzWPq8")
     OWNER = config("OWNER_ID", default=5190902724, cast=int)
     LOG = config("LOG_CHANNEL", default=-1001971871116, cast=int)
 except Exception as e:
