@@ -23,6 +23,12 @@ from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 
 LOGS.info("Starting...")
 
+app = Client(
+        "pdf",
+        bot_token=BOT_TOKEN,api_hash=API_HASH,
+            api_id=APP_ID
+    )
+
 
 ######## Connect ########
 
@@ -37,11 +43,6 @@ except Exception as e:
 
 
 
-app = Client(
-        "pdf",
-        bot_token=BOT_TOKEN,api_hash=API_HASH,
-            api_id=APP_ID
-    )
 
 
 @app.on_message(filters.text & filters.private & filters.incoming)
