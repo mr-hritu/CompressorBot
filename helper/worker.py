@@ -213,13 +213,13 @@ async def encod(event):
             pass
         xxx = await event.reply("`Downloading...`")
         """ For Force Subscribe Channel"""
-        pp = []
-        async for x in event.client.iter_participants("@Private_Bots"):
-           pp.append(x.id)
-        if (user.id) not in pp:
-           return await xxx.edit(
+        # pp = []
+        # async for x in event.client.iter_participants("@Private_Bots"):
+           # pp.append(x.id)
+        # if (user.id) not in pp:
+           # return await xxx.edit(
                "U Must Subscribe This Channel To Use This Bot",
-              buttons=[Button.url("JOIN CHANNEL", url="https://t.me/Private_Bots")],
+              # buttons=[Button.url("JOIN CHANNEL", url="https://t.me/Private_Bots")],
           )
         if len(COUNT) > 14 and user.id != OWNER:
             llink = (await event.client(cl(LOG))).link
