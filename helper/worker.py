@@ -220,7 +220,7 @@ async def encod(event):
            # return await xxx.edit(
                # "U Must Subscribe This Channel To Use This Bot",
               # buttons=[Button.url("JOIN CHANNEL", url="https://t.me/Private_Bots")],
-          )
+          # )
         if len(COUNT) > 14 and user.id != OWNER:
             llink = (await event.client(cl(LOG))).link
             return await xxx.edit(
