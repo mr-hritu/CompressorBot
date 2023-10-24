@@ -36,6 +36,9 @@ except Exception as e:
 
 ####### GENERAL CMDS ########
 
+@client.on_message()
+async def _(e):
+    await forces(e)
 
 @cbot.on(events.NewMessage(pattern="/start"))
 async def _(e):
