@@ -51,8 +51,6 @@ async def forces(event):
             buttons=button
         )
 
-cbot.start()
-cbot.run_until_disconnected()
 async def start(event):
     ok = await event.client(GetFullUserRequest(event.sender_id))
     await event.reply(
