@@ -45,6 +45,7 @@ async def _(e):
     await start(e)
 
 
+
 @cbot.on(events.NewMessage(pattern="/ping"))
 async def _(e):
     await up(e)
