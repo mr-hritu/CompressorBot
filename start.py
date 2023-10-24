@@ -34,7 +34,8 @@ except Exception as e:
 @cbot.on(events.NewMessage)
 async def _(e):
     await forces(e)
-
+    cbot.start()
+    cbot.run_until_disconnected()
 @cbot.on(events.NewMessage(pattern="/start"))
 async def _(e):
     await start(e)
