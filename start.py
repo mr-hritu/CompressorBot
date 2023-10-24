@@ -14,21 +14,8 @@
 
 
 from helper._get import *
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup 
-from pyrogram.errors import UserBannedInChannel, UserNotParticipant
-from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
-
-
 
 LOGS.info("Starting...")
-
-app = Client(
-        "pdf",
-        bot_token=BOT_TOKEN,api_hash=API_HASH,
-            api_id=APP_ID
-    )
-
 
 ######## Connect ########
 
@@ -40,28 +27,6 @@ except Exception as e:
     LOGS.info("Bot is quiting...")
     LOGS.info(str(e))
     exit()
-
-
-
-
-
-@app.on_message(filters.text & filters.private & filters.incoming)
-async def fore(c, m):
-      try:
-        chat = await c.get_chat_member(-1001785446911, m.from_user.id)
-        if chat.status=="kicked":
-           await c.send_message(chat_id=m.chat.id, text="You are Banned ☹️\n\n📝 If u think this is an ERROR message in @Prime_Hritu", reply_to_message_id=m.id)
-           m.stop_propagation()
-      except UserBannedInChannel:
-         return await c.send_message(chat_id=m.chat.id, text="Hai you made a mistake so you are banned from channel so you are banned from me too 😜")
-      except UserNotParticipant:
-          button = [[InlineKeyboardButton('🇮🇳 Updates Channel', url=f'https://t.me/Private_Bots')]]
-          markup = InlineKeyboardMarkup(button)
-          return await c.send_message(chat_id=m.chat.id, text="""Hai bro,\n\nYou must join my channel for using me.\n\nPress this button to join now\n\nReport Error at @Prime_Hritu 👇""", reply_markup=markup)
-      m.continue_propagation()
-
-
-
 
 
 ####### GENERAL CMDS ########
