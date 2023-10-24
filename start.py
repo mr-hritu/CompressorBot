@@ -14,6 +14,11 @@
 
 
 from helper._get import *
+from telethon.sync import TelegramClient
+from telethon.tl.functions.channels import GetParticipantRequest
+from telethon.tl.types import ChannelParticipant
+from telethon.errors.rpcerrorlist import UserBannedError, UserNotParticipantError
+from telethon import functions, types
 
 LOGS.info("Starting...")
 
