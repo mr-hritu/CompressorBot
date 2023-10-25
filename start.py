@@ -48,17 +48,8 @@ async def get_user_join(id):
 
 @cbot.on(events.NewMessage(incoming=True))
 async def fore(event):
-    user = await event.get_user()
-    chat = await event.get_chat()
-    title = chat.title or "this chat"
-    pp = await cbot.get_participants(chat)
-    count = len(pp)
-    mention = f"[{get_display_name(user)}](tg://user?id={user.id})"
-    name = user.first_name
-    last = user.last_name
-    fullname = f"{name} {last}" if last else name
-    username = f"@{uu}" if (uu := user.username) else mention
-    x = await get_user_join(user.id)
+    id = event.sender_id
+    x = await get_user_join(id)
     if x is True:
         msg = await event.reply("You Must Join @Private_Bots To Continue This Bot \n\n After Joined Hit /start")
     else:
