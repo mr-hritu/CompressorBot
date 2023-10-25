@@ -32,8 +32,8 @@ async def up(event):
 async def forces(event):
     try:
         if event.is_private:
-            channel = await client.get_entity(-1001785446911)  # Replace with your channel ID
-            chat = await client(GetParticipantRequest(channel, event.sender_id))
+            channel = await event.get_entity(-1001785446911)  # Replace with your channel ID
+            chat = await event(GetParticipantRequest(channel, event.sender_id))
             if isinstance(chat.participant, ChannelParticipant) and chat.participant.kicked:
                 await event.respond("You are Banned ☹️\n\n📝 If u think this is an ERROR message in @PrivateHelpXBot")
             else:
