@@ -34,6 +34,7 @@ except Exception as e:
     LOGS.info(str(e))
     exit()
 
+bot_self = cbot.loop.run_until_complete(cbot.get_me())
 
 ####### GENERAL CMDS ########
 
