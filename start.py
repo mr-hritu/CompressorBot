@@ -47,7 +47,7 @@ async def get_user_join(id):
         ok = False
     return ok
 
-@cbot.on(events.NewMessage)
+@cbot.on(events.NewMessage(incoming=True))
 async def fore(event):
     user = await event.get_user()
     chat = await event.get_chat()
