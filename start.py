@@ -50,9 +50,7 @@ async def get_user_join(id):
 async def fore(event):
     id = event.sender_id
     x = await get_user_join(id)
-    if x is True:
-        await start(e)
-    else:
+    if x is False:
         msg = await event.reply("You Must Join @Private_Bots To Continue This Bot \n\n After Joined Hit /start")
 
 
