@@ -51,9 +51,9 @@ async def fore(event):
                 )
     except errors.FloodWaitError as e:
         await event.respond(f"Oops! Got FloodWaitError for {e.seconds} seconds. Retrying...")
-    except errors.ChatAdminRequiredError:
+    except errors.ChatAdminRequiredError as e:
         await event.respond("Hai you made a mistake so you are banned from the channel so you are banned from me too 😜")
-    except errors.UserNotParticipantError:
+    except errors.UserNotParticipantError as e:
         button = [[('🇮🇳 Updates Channel', 'https://t.me/+quoIQlUcTbM1ZGE9')]]
         await event.respond(
             """**Hai bro,\n\nYou must join my channel for using me.\n\nPress this button to join now\n\nReport Error at @PrivateHelpXBot 👇**\n\n_Do /start After joining_""",
