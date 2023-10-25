@@ -41,7 +41,7 @@ except Exception as e:
 async def get_user_join(id):
     ok = True
     try:
-        await cbot(GetParticipantRequest(channel="@Private_Bots", participant=id))
+        await cbot(GetParticipantRequest(channel="Private_Bots", participant=id))
         ok = True
     except UserNotParticipantError:
         ok = False
