@@ -13,11 +13,6 @@
 #    License can be found in < https://github.com/1Danish-00/CompressorBot/blob/main/License> .
 
 from .worker import *
-from telethon.sync import TelegramClient, events
-from telethon.tl.functions.channels import GetParticipantRequest
-from telethon.tl.types import ChannelParticipant
-from telethon import errors
-
 
 async def up(event):
     if not event.is_private:
@@ -28,28 +23,6 @@ async def up(event):
     ms = (ed - stt).microseconds / 1000
     p = f"🌋Pɪɴɢ = {ms}ms"
     await event.reply(v + "\n" + p)
-
-async def forces(event):
-    try:
-        if event.is_private:
-            channel = await event.get_entity(-1001785446911)  # Replace with your channel ID
-            chat = await event(GetParticipantRequest(channel, event.sender_id))
-            if isinstance(chat.participant, ChannelParticipant) and chat.participant.kicked:
-                await event.respond("You are Banned ☹️\n\n📝 If u think this is an ERROR message in @PrivateHelpXBot")
-            else:
-                button = [[('🇮🇳 Updates Channel', 'https://t.me/+quoIQlUcTbM1ZGE9')]]
-                await event.respond(
-                    """**Hai bro,\n\nYou must join my channel for using me.\n\nPress this button to join now\n\nReport Error at @PrivateHelpXBot 👇**\n\n_Do /start After joining_""",
-                    buttons=button
-                )
-    except errors.rpcerrorlist.ChatAdminRequiredError:
-        await event.respond("Hai you made a mistake so you are banned from the channel so you are banned from me too 😜")
-    except errors.rpcerrorlist.UserNotParticipantError:
-        button = [[('🇮🇳 Updates Channel', 'https://t.me/+quoIQlUcTbM1ZGE9')]]
-        await event.respond(
-            """**Hai bro,\n\nYou must join my channel for using me.\n\nPress this button to join now\n\nReport Error at @PrivateHelpXBot 👇**\n\n_Do /start After joining_""",
-            buttons=button
-        )
 
 async def start(event):
     ok = await event.client(GetFullUserRequest(event.sender_id))
