@@ -51,9 +51,9 @@ async def fore(event):
     id = event.sender_id
     x = await get_user_join(id)
     if x is True:
-        msg = await event.reply("You Must Join @Private_Bots To Continue This Bot \n\n After Joined Hit /start")
-    else:
         await start(e)
+    else:
+        msg = await event.reply("You Must Join @Private_Bots To Continue This Bot \n\n After Joined Hit /start")
 
 
 @cbot.on(events.NewMessage(pattern="/start"))
