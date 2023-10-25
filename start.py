@@ -60,7 +60,6 @@ async def fore(event):
             buttons=button
         )
 
-cbot.start()
 cbot.run_until_disconnected()
 
 @cbot.on(events.NewMessage(pattern="/start"))
