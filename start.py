@@ -49,12 +49,13 @@ async def get_user_join(id):
 
 @cbot.on(events.NewMessage(incoming=True))
 async def fore(event):
-    id = event.sender_id
-    x = await get_user_join(id)
+    chat = await event.get_chat()
+    idp = event.sender_id
+    x = await get_user_join(idp)
     if x is False:
         msg = await event.reply("You Must Join @Private_Bots To Continue This Bot \n\n After Joined Hit /start")
         await cbot.edit_permissions(
-                -1001785446911 , event.sender_id, until_date=None, send_messages=False
+                event.chat.id, idp, until_date=None, send_messages=False
             )
 
 
