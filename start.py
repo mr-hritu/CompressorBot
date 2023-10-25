@@ -14,10 +14,13 @@
 
 
 from helper._get import *
-from telethon.sync import TelegramClient, events
+from telethon.utils import get_display_name
+import re
+from telethon import TelegramClient, events, Button
+from decouple import config
+from telethon.tl.functions.users import GetFullUserRequest
+from telethon.errors.rpcerrorlist import UserNotParticipantError
 from telethon.tl.functions.channels import GetParticipantRequest
-from telethon.tl.types import ChannelParticipant
-from telethon import errors
 
 LOGS.info("Starting...")
 
@@ -35,30 +38,33 @@ except Exception as e:
 
 ####### GENERAL CMDS ########
 
+async def get_user_join(id):
+    ok = True
+    try:
+        await BotzHub(GetParticipantRequest(channel=channel, participant=id))
+        ok = True
+    except UserNotParticipantError:
+        ok = False
+    return ok
+
 @cbot.on(events.NewMessage)
 async def fore(event):
-    try:
-        if event.is_private:
-            channel = await cbot.get_entity(-1001785446911)  # Replace with your channel ID
-            chat = await cbot(GetParticipantRequest(channel, event.sender_id))
-            if isinstance(chat.participant, ChannelParticipant) and chat.participant.kicked:
-                await event.respond("You are Banned ☹️\n\n📝 If u think this is an ERROR message in @PrivateHelpXBot")
-            else:
-                button = [[('🇮🇳 Updates Channel', 'https://t.me/+quoIQlUcTbM1ZGE9')]]
-                await event.respond(
-                    """**Hai bro,\n\nYou must join my channel for using me.\n\nPress this button to join now\n\nReport Error at @PrivateHelpXBot 👇**\n\n_Do /start After joining_""",
-                    buttons=button
-                )
-    except errors.FloodWaitError as e:
-        await event.respond(f"Oops! Got FloodWaitError for {e.seconds} seconds. Retrying...")
-    except errors.ChatAdminRequiredError as e:
-        await event.respond("Hai you made a mistake so you are banned from the channel so you are banned from me too 😜")
-    except errors.UserNotParticipantError as e:
-        button = [[('🇮🇳 Updates Channel', 'https://t.me/+quoIQlUcTbM1ZGE9')]]
-        await event.respond(
-            """**Hai bro,\n\nYou must join my channel for using me.\n\nPress this button to join now\n\nReport Error at @PrivateHelpXBot 👇**\n\n_Do /start After joining_""",
-            buttons=button
-        )
+    user = await event.get_user()
+    chat = await event.get_chat()
+    title = chat.title or "this chat"
+    pp = await BotzHub.get_participants(chat)
+    count = len(pp)
+    mention = f"[{get_display_name(user)}](tg://user?id={user.id})"
+    name = user.first_name
+    last = user.last_name
+    fullname = f"{name} {last}" if last else name
+    username = f"@{uu}" if (uu := user.username) else mention
+    x = await get_user_join(user.id)
+    if x is True:
+        msg = await event.reply("You Must Join @Private_Bots To Continue This Bot \n\n After Joined Hit /start")
+    else:
+        await start(e)
+
 
 @cbot.on(events.NewMessage(pattern="/start"))
 async def _(e):
