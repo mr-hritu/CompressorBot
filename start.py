@@ -17,7 +17,6 @@ from helper._get import *
 from telethon.utils import get_display_name
 import re
 from telethon import TelegramClient, events, Button
-from decouple import config
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.errors.rpcerrorlist import UserNotParticipantError
 from telethon.tl.functions.channels import GetParticipantRequest
