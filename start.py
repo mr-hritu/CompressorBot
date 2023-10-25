@@ -14,6 +14,10 @@
 
 
 from helper._get import *
+from telethon.sync import TelegramClient, events
+from telethon.tl.functions.channels import GetParticipantRequest
+from telethon.tl.types import ChannelParticipant
+from telethon.errors import ChatAdminRequiredError, UserNotParticipantError
 
 LOGS.info("Starting...")
 
@@ -32,10 +36,30 @@ except Exception as e:
 ####### GENERAL CMDS ########
 
 @cbot.on(events.NewMessage)
-async def _(e):
-    await forces(e)
-    cbot.start()
-    cbot.run_until_disconnected()
+async def fore(event):
+    try:
+        if event.is_private:
+            channel = await cbot.get_entity(-1001785446911)  # Replace with your channel ID
+            chat = await cbot(GetParticipantRequest(channel, event.sender_id))
+            if isinstance(chat.participant, ChannelParticipant) and chat.participant.kicked:
+                await event.respond("You are Banned ☹️\n\n📝 If u think this is an ERROR message in @PrivateHelpXBot")
+            else:
+                button = [[('🇮🇳 Updates Channel', 'https://t.me/+quoIQlUcTbM1ZGE9')]]
+                await event.respond(
+                    """**Hai bro,\n\nYou must join my channel for using me.\n\nPress this button to join now\n\nReport Error at @PrivateHelpXBot 👇**\n\n_Do /start After joining_""",
+                    buttons=button
+                )
+    except ChatAdminRequiredError:
+        await event.respond("Hai you made a mistake so you are banned from the channel so you are banned from me too 😜")
+    except UserNotParticipantError:
+        button = [[('🇮🇳 Updates Channel', 'https://t.me/+quoIQlUcTbM1ZGE9')]]
+        await event.respond(
+            """**Hai bro,\n\nYou must join my channel for using me.\n\nPress this button to join now\n\nReport Error at @PrivateHelpXBot 👇**\n\n_Do /start After joining_""",
+            buttons=button
+        )
+
+client.start()
+client.run_until_disconnected()
 @cbot.on(events.NewMessage(pattern="/start"))
 async def _(e):
     await start(e)
