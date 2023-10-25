@@ -41,7 +41,7 @@ except Exception as e:
 async def get_user_join(id):
     ok = True
     try:
-        await BotzHub(GetParticipantRequest(channel=channel, participant=id))
+        await cbot(GetParticipantRequest(channel="@Private_Bots", participant=id))
         ok = True
     except UserNotParticipantError:
         ok = False
@@ -52,7 +52,7 @@ async def fore(event):
     user = await event.get_user()
     chat = await event.get_chat()
     title = chat.title or "this chat"
-    pp = await BotzHub.get_participants(chat)
+    pp = await cbot.get_participants(chat)
     count = len(pp)
     mention = f"[{get_display_name(user)}](tg://user?id={user.id})"
     name = user.first_name
