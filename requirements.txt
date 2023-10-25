@@ -6,4 +6,3 @@ html_telegraph_poster
 requests
 TgCrypto
 pyrogram
-decouple
