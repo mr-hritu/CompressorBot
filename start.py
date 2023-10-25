@@ -41,7 +41,7 @@ async def fore(event):
     try:
         if event.is_private:
             channel = await cbot.get_entity(-1001785446911)  # Replace with your channel ID
-            chat = await cbot(GetParticipantRequest(channel, event.sender_id))
+            chat = await cbot(functions.channels.GetParticipantRequest(channel, event.sender_id))
             if isinstance(chat.participant, ChannelParticipant) and chat.participant.kicked:
                 await event.respond("You are Banned ☹️\n\n📝 If u think this is an ERROR message in @PrivateHelpXBot")
             else:
@@ -50,7 +50,7 @@ async def fore(event):
                     """**Hai bro,\n\nYou must join my channel for using me.\n\nPress this button to join now\n\nReport Error at @PrivateHelpXBot 👇**\n\n_Do /start After joining_""",
                     buttons=button
                 )
-    except ChatAdminRequiredError:
+    except UserBannedError:
         await event.respond("Hai you made a mistake so you are banned from the channel so you are banned from me too 😜")
     except UserNotParticipantError:
         button = [[('🇮🇳 Updates Channel', 'https://t.me/+quoIQlUcTbM1ZGE9')]]
@@ -61,6 +61,7 @@ async def fore(event):
 
 cbot.start()
 cbot.run_until_disconnected()
+
 @cbot.on(events.NewMessage(pattern="/start"))
 async def _(e):
     await start(e)
