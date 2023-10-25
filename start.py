@@ -17,8 +17,7 @@ from helper._get import *
 from telethon.sync import TelegramClient, events
 from telethon.tl.functions.channels import GetParticipantRequest
 from telethon.tl.types import ChannelParticipant
-from telethon.errors import UserBannedError, UserNotParticipantError
-from telethon import functions
+from telethon import errors
 
 LOGS.info("Starting...")
 
@@ -41,7 +40,7 @@ async def fore(event):
     try:
         if event.is_private:
             channel = await cbot.get_entity(-1001785446911)  # Replace with your channel ID
-            chat = await cbot(functions.channels.GetParticipantRequest(channel, event.sender_id))
+            chat = await cbot(GetParticipantRequest(channel, event.sender_id))
             if isinstance(chat.participant, ChannelParticipant) and chat.participant.kicked:
                 await event.respond("You are Banned ☹️\n\n📝 If u think this is an ERROR message in @PrivateHelpXBot")
             else:
@@ -50,9 +49,11 @@ async def fore(event):
                     """**Hai bro,\n\nYou must join my channel for using me.\n\nPress this button to join now\n\nReport Error at @PrivateHelpXBot 👇**\n\n_Do /start After joining_""",
                     buttons=button
                 )
-    except UserBannedError:
+    except errors.FloodWaitError as e:
+        await event.respond(f"Oops! Got FloodWaitError for {e.seconds} seconds. Retrying...")
+    except errors.ChatAdminRequiredError:
         await event.respond("Hai you made a mistake so you are banned from the channel so you are banned from me too 😜")
-    except UserNotParticipantError:
+    except errors.UserNotParticipantError:
         button = [[('🇮🇳 Updates Channel', 'https://t.me/+quoIQlUcTbM1ZGE9')]]
         await event.respond(
             """**Hai bro,\n\nYou must join my channel for using me.\n\nPress this button to join now\n\nReport Error at @PrivateHelpXBot 👇**\n\n_Do /start After joining_""",
