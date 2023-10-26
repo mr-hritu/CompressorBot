@@ -1,4 +1,3 @@
-wheel
 aiohttp
 python-decouple
 pyaesni --no-cache-dir
