@@ -1,3 +1,4 @@
+wheel
 aiohttp
 python-decouple
 pyaesni
