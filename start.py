@@ -14,12 +14,7 @@
 
 
 from helper._get import *
-from telethon.utils import get_display_name
-import re
-from telethon import TelegramClient, events, Button
-from telethon.tl.functions.users import GetFullUserRequest
-from telethon.errors.rpcerrorlist import UserNotParticipantError
-from telethon.tl.functions.channels import GetParticipantRequest
+from telethon import Button, TelegramClient, events, functions, errors
 
 LOGS.info("Starting...")
 
@@ -36,26 +31,27 @@ except Exception as e:
 
 ####### GENERAL CMDS ########
 
-async def get_user_join(id):
+async def check_user(user):
     ok = True
     try:
-        await cbot(GetParticipantRequest(channel="Private_Bots", participant=id))
+        await cbot(
+            functions.channels.GetParticipantRequest(
+                channel="Private_Bots", participant=user
+            )
+        )
         ok = True
-    except UserNotParticipantError:
+    except errors.rpcerrorlist.UserNotParticipantError:
         ok = False
     return ok
 
-@cbot.on(events.NewMessage(incoming=True))
-async def fore(event):
-    chat = await event.get_chat()
-    idp = event.sender_id
-    x = await get_user_join(idp)
-    if x is False:
-        msg = await event.reply("You Must Join @Private_Bots To Continue This Bot \n\n After Joined Hit /start")
-
 @cbot.on(events.NewMessage(pattern="/start"))
 async def _(e):
-    await start(e)
+    user = await e.get_sender()
+    if not await check_user(user.id):
+        await force(e)
+        return
+    else:
+        await start(e)
 
 
 
