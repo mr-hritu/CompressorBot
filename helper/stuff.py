@@ -24,6 +24,13 @@ async def up(event):
     p = f"🌋Pɪɴɢ = {ms}ms"
     await event.reply(v + "\n" + p)
 
+async def force(event):
+    if not event.is_private:
+        return
+    
+    p = "🌞 **Please Join @Private_Bots To Continue This Bot** 🤗\n\n__After Joining Send __/start"  
+    await event.reply(p)
+
 async def start(event):
     ok = await event.client(GetFullUserRequest(event.sender_id))
     await event.reply(
