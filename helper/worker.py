@@ -218,11 +218,11 @@ async def encod(event):
            # return await xxx.edit(
              # "U Must Subscribe This Channel To Use This Bot",buttons=[Button.url("JOIN CHANNEL", url="https://t.me/Private_Bots")],
              # )
-        if len(COUNT) > 14 and user.id != OWNER:
+        if len(COUNT) > 19 and user.id != OWNER:
             llink = (await event.client(cl(LOG))).link
             return await xxx.edit(
-                "Overload Already 15 Process Running",
-                buttons=[Button.url("Working Status", url=llink)],
+                "Overload Already 20 Process Running",
+                buttons=[Button.url("Working Status", url="https://t.me/Private_Bots_Lists")],
             )
         if user.id in COUNT and user.id != OWNER:
             return await xxx.edit(
