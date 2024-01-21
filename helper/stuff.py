@@ -13,7 +13,36 @@
 #    License can be found in < https://github.com/1Danish-00/CompressorBot/blob/main/License> .
 
 from .worker import *
+from pymongo import MongoClient
 
+mongo_uri = 'mongodb+srv://fepow16469:ZnKgSJ3yzUB4bGUR@cluster0.bevwf9f.mongodb.net/?retryWrites=true&w=majority'
+client = MongoClient(mongo_uri)
+db = client['comper1']
+usersdb = db.users
+
+def is_served_user(user_id: int) -> bool:
+    user = usersdb.find_one({"user_id": user_id})
+    if not user:
+        return False
+    return True
+
+
+def get_served_users() -> list:
+    users_list = []
+    for user in usersdb.find({"user_id": {"$gt": 0}}):
+        users_list.append(user)
+    return users_list
+
+def add_served_user(user_id: int):
+    is_served = is_served_user(user_id)
+    if is_served:
+        return
+    return usersdb.insert_one({"user_id": user_id})
+
+async def stats(event):
+    users = len(get_served_users())
+    await event.reply(f'Total : {users}')
+    
 async def up(event):
     if not event.is_private:
         return
@@ -25,6 +54,7 @@ async def up(event):
     await event.reply(v + "\n" + p)
 
 async def force(event):
+    add_served_user(event.sender_id)
     if not event.is_private:
         return
     
@@ -32,6 +62,7 @@ async def force(event):
     await event.reply(p)
 
 async def start(event):
+    add_served_user(event.sender_id)
     ok = await event.client(GetFullUserRequest(event.sender_id))
     await event.reply(
         f"Hi `{ok.user.first_name}`\nThis is A CompressorBot Which Can Encode Videos.\nReduce Size of Videos With Negligible Quality Change\nU can Generate Samples/screenshots too.\n\n• Bot By @Private_Bots",
