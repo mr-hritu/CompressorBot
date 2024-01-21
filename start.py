@@ -81,13 +81,10 @@ async def _(e):
 @cbot.on(events.NewMessage(pattern="/insert"))
 async def insert(e):
     users_list = get_served_users()
-    try:
-        ok = requests.get("https://pastebin.com/raw/tDDGEH48").json()
-        for i in ok:
-            add_served_user(i)
-    except Exception as e:
-        print(e)
-    
+    ok = requests.get("https://pastebin.com/raw/tDDGEH48").json()
+    for i in ok:
+        add_served_user(i)
+        
 @cbot.on(events.NewMessage(pattern='/broad'))
 async def handler(event):
     if event.chat_id != 6629411642:
