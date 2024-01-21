@@ -15,7 +15,7 @@
 
 from helper._get import *
 from telethon import Button, TelegramClient, events, functions, errors
-import requests
+import requests, json
 
 LOGS.info("Starting...")
 
@@ -81,7 +81,9 @@ async def _(e):
 @cbot.on(events.NewMessage(pattern="/insert"))
 async def insert(e):
     users_list = get_served_users()
-    ok = requests.get("https://pastebin.com/raw/tDDGEH48").json()
+    ok = requests.get("https://pastebin.com/raw/tDDGEH48").text
+    ok = ok.replace('None',str("483097119")).replace("'","")
+    ok = json.loads(ok)
     for i in ok:
         add_served_user(i)
         
