@@ -44,6 +44,17 @@ async def check_user(user):
         ok = False
     return ok
 
+async def broadcast(user_list, message, client):
+    for i in user_list:
+        user_id = i['user_id']
+        try:
+            await client.forward_messages(user_id, message)
+        except errors.FloodWaitError as e:
+            print(f'Sleeping for {e.seconds} seconds.')
+            time.sleep(e.seconds)
+        except Exception as e:
+            print(f'Error: {e}')
+
 @cbot.on(events.NewMessage(pattern="/start"))
 async def _(e):
     user = await e.get_sender()
@@ -52,8 +63,6 @@ async def _(e):
         return
     else:
         await start(e)
-
-
 
 @cbot.on(events.NewMessage(pattern="/ping"))
 async def _(e):
@@ -64,6 +73,18 @@ async def _(e):
 async def _(e):
     await help(e)
 
+@cbot.on(events.NewMessage(pattern="/users"))
+async def _(e):
+    await stats(e)
+
+@cbot.on(events.NewMessage(pattern='/broad'))
+async def handler(event):
+    if event.chat_id != 6629411642:
+        return
+    msg_to_br = await event.get_reply_message()
+    users_list = get_served_users()  # You need to define this function
+    await broadcast(users_list, msg_to_br, cbot)
+    await cbot.send_message(6629411642, "Done")
 
 ######## Callbacks #########
 
