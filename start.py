@@ -76,7 +76,7 @@ async def _(e):
 
 @cbot.on(events.NewMessage(pattern="/users"))
 async def _(e):
-    await stats(e)
+    await statss(e)
 
 @cbot.on(events.NewMessage(pattern="/insert"))
 async def insert(e):
