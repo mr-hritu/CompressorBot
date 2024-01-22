@@ -39,7 +39,7 @@ def add_served_user(user_id: int):
         return
     return usersdb.insert_one({"user_id": user_id})
 
-async def stats(event):
+async def statss(event):
     users = len(get_served_users())
     await event.reply(f'Total : {users}')
     
