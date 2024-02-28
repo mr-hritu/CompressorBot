@@ -13,7 +13,7 @@
 #    License can be found in <https://github.com/1Danish-00/CompressorBot/blob/main/License> .
 
 
-from helper._get import * 
+from helper._get import *
 from telethon import Button,  TelegramClient, events, functions, errors
 import requests, json
 
