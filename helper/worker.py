@@ -132,7 +132,6 @@ async def encc(e):
         os.remove(dl)
         os.remove(out)
     except Exception as er:
-        pass
         return COUNT.remove(e.chat_id)
 
 
