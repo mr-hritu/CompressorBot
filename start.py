@@ -17,17 +17,12 @@ from helper._get import *
 from telethon import Button,  TelegramClient, events, functions, errors
 import requests, json
 
-LOGS.info("Starting...")
-
 ######## Connect ########
 
 
 try:
     cbot = TelegramClient("bot", APP_ID, API_HASH).start(bot_token=BOT_TOKEN)
 except Exception as e:
-    LOGS.info("Environment vars are missing! Kindly recheck.")
-    LOGS.info("Bot is quiting...")
-    LOGS.info(str(e))
     exit()
 
 ####### GENERAL CMDS ########
@@ -172,5 +167,4 @@ async def _(e):
 
 ########### Start ############
 
-LOGS.info("Bot has started.")
 cbot.run_until_disconnected()
