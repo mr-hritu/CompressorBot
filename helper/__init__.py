@@ -41,4 +41,4 @@ from telethon.tl.functions.users import GetFullUserRequest
 from telethon.utils import get_display_name
 
 basicConfig(format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s", level=INFO)
-LOGS = getLogger(__name__)
+LOGS = ""
