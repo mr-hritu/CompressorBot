@@ -47,8 +47,6 @@ from telethon.tl.types import (
 
 filename = ""
 
-log: logging.Logger = logging.getLogger("FastTelethon")
-
 TypeLocation = Union[
     Document,
     InputDocumentFileLocation,
